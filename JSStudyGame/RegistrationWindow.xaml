@@ -1,0 +1,100 @@
+﻿<Window x:Class="JSStudyGame.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JSStudyGame"
+        mc:Ignorable="d"
+        Title="Registration" Height="460" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="310"/>
+            <ColumnDefinition Width="475*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <WrapPanel>
+                <Label Margin="10,0,10,0">Name</Label>
+                <Label x:Name="lblNameError" Margin="10,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <TextBox x:Name="txtName"  Margin="10,0,10,0"></TextBox>
+            <WrapPanel>
+                <Label Margin="10,0,10,0">Surname</Label>
+                <Label x:Name="lblSurnameError" Margin="10,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <TextBox x:Name="txtSurname"  Margin="10,0,10,0"></TextBox>
+            <WrapPanel>
+                <Label Margin="10,5,10,0" Content="Gender :"></Label>
+                <RadioButton x:Name="radioBtnMale" GroupName="GenderGroup" IsThreeState="False" Content="Male" IsChecked="True" Margin="10,10,10,0" Checked="RadioBtnMale_Checked">
+                </RadioButton>
+                <RadioButton x:Name="radioBtnFemale" GroupName="GenderGroup" Content="Female" Margin="10,10,10,0" Checked="RadioBtnFemale_Checked">
+                </RadioButton>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Margin="10,0,10,0">Login</Label>
+                <Label x:Name="lblLoginError" Margin="10,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <TextBox x:Name="txtLogin" Margin="10,0,10,0"></TextBox>
+            <WrapPanel>
+                <Label Margin="10,0,10,0">E-mail</Label>
+                <Label x:Name="lblEmailError" Margin="10,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <TextBox x:Name="txtEmail"  Margin="10,0,10,0"></TextBox>
+            <WrapPanel>
+                <Label Margin="10,0,10,0">Birthdate</Label>
+                <Label x:Name="lblBirthdateError" Margin="10,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <DatePicker x:Name="dateChoose" Margin="10,0,10,0"></DatePicker>
+            <WrapPanel>
+                <Label Margin="10,0,0,0">Password</Label>
+                <Image x:Name="imgQuestionMakr" Width="15" Stretch="Fill" Height="15" Loaded="ImgQuestionMakr_Loaded">
+                    <Image.ToolTip>
+                        <ToolTip>
+                            <TextBlock Foreground="Green">
+                                must contain at least one lowercase
+                                <LineBreak />
+                                must contain at least one uppercase
+                                <LineBreak />
+                                mustn't be less 8 characters
+                                <LineBreak />
+                                must contain at least one numeric value
+                            </TextBlock>
+                        </ToolTip>
+                    </Image.ToolTip>
+                </Image>
+                <Label x:Name="lblPasswordOneError" Margin="5,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <WrapPanel>
+                <PasswordBox x:Name="txtPasswordOne" PasswordChar="x" Margin="10,0,10,0" Width="150" MaxLength="15" VerticalAlignment="Center"></PasswordBox>
+                <TextBox x:Name="txtPasswordOneTxt" Margin="10,0,10,0" Width="150" MaxLength="15" Visibility="Collapsed"></TextBox>
+                <Button x:Name="btnShowPasswordOne" Width="50" Click="BtnShowPasswordOne_Click">Show</Button>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Margin="10,0,0,0">Repeat</Label>
+                <Image x:Name="imgQuestionMakrTwo" Width="15" Stretch="Fill" Height="15" Loaded="ImgQuestionMakrTwo_Loaded" >
+                    <Image.ToolTip>
+                        <ToolTip>
+                            <TextBlock Foreground="Green">
+                                must contain at least one lowercase
+                                <LineBreak />
+                                must contain at least one uppercase
+                                <LineBreak />
+                                mustn't be less 8 characters
+                                <LineBreak />
+                                must contain at least one numeric value
+                            </TextBlock>
+                        </ToolTip>
+                    </Image.ToolTip>
+                </Image>
+                <Label x:Name="lblPasswordTwoError" Margin="10,0,10,0" Foreground="Red"></Label>
+            </WrapPanel>
+            <WrapPanel>
+                <PasswordBox x:Name="txtPasswordTwo" PasswordChar="x" Margin="10,0,10,0" Width="150" MaxLength="15" VerticalAlignment="Center"></PasswordBox>
+                <TextBox x:Name="txtPasswordTwoTxt" Margin="10,0,10,0" Width="150" MaxLength="15" Visibility="Collapsed"></TextBox>
+                <Button x:Name="btnShowPasswordTwo" Width="50" Click="BtnShowPasswordTwo_Click">Show</Button>
+            </WrapPanel>
+            <Button x:Name="btnAddPhoto" Margin="40,10,40,0" Click="BtnAddPhoto_Click" Background="Aqua">ADD PHOTO</Button>
+            <Button x:Name="btnSignUp" Content="SIGN UP" Margin="40,10,40,10" Click="BtnSignUp_Click" Background="Aquamarine"/>
+        </StackPanel>
+        <Image x:Name="imgPhotoAndPicture" Grid.Column="1" Margin="20" Loaded="ImgPhotoAndPicture_Loaded"></Image>
+    </Grid>
+</Window>
