@@ -96,7 +96,9 @@
             <Button x:Name="btnChangePhoto" Margin="40,10,40,0" Background="Aqua" Click="BtnChangePhoto_Click" Visibility="Hidden">CHANGE PHOTO</Button>
             <Button x:Name="btnSave" Content="SAVE CHANGE" Margin="40,10,40,10" Background="Aquamarine" Click="BtnSave_Click" Visibility="Hidden"/>
         </StackPanel>
-        <Image x:Name="imgPhotoAndPicture" Grid.Column="1" Margin="80,40,80,150" Loaded="ImgPhotoAndPicture_Loaded"></Image>
         
+        <StackPanel Grid.Column="1" >
+            <Image x:Name="imgPhotoAndPicture" Margin="20,30,20,10" MinWidth="200" MinHeight="250" Loaded="ImgPhotoAndPicture_Loaded"></Image>
+        </StackPanel>
     </Grid>
 </Window>
