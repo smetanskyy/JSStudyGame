@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\ImageEdit.cs" />
     <Compile Include="Helpers\ServerWorker.cs" />
     <Compile Include="ProfileWindow.xaml.cs">
@@ -152,6 +153,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

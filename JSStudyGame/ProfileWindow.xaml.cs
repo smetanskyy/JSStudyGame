@@ -94,10 +94,10 @@ namespace JSStudyGame
             }
         }
 
-        private void ImgQuestionMakr_Loaded(object sender, RoutedEventArgs e)
+        private void ImgQuestionMark_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
-            imgQuestionMakr.Source = ImageEdit.CreateBitmapImage(path);
+            //string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
+            imgQuestionMark.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "my_question_mark_icon.png"));
         }
 
         private void BtnShowPasswordOne_Click(object sender, RoutedEventArgs e)
@@ -119,10 +119,10 @@ namespace JSStudyGame
             }
         }
 
-        private void ImgQuestionMakrTwo_Loaded(object sender, RoutedEventArgs e)
+        private void ImgQuestionMarkTwo_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
-            imgQuestionMakrTwo.Source = ImageEdit.CreateBitmapImage(path);
+            //string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png"); 
+            imgQuestionMarkTwo.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "my_question_mark_icon.png"));
         }
 
         private void BtnShowPasswordTwo_Click(object sender, RoutedEventArgs e)

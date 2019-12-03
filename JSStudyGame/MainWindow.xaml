@@ -19,13 +19,13 @@
         <WrapPanel Grid.Row="0" Grid.Column="1" FlowDirection="RightToLeft">
             <Button x:Name="btnLogout" Width="auto" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnLogout_Click">
                 <WrapPanel FlowDirection="LeftToRight">
-                    <Image x:Name="imgLogout"  Stretch="Fill" Height="20" Width="20" Margin="5,0,0,0" Loaded="ImgLogout_Loaded"/>
+                    <Image x:Name="imgLogout" Stretch="Fill" Height="20" Width="20" Margin="5,0,0,0" Loaded="ImgLogout_Loaded"/>
                     <Label Content="LOGOUT" HorizontalAlignment="Center"/>
                 </WrapPanel>
             </Button>
             <Button x:Name="btnProfile" Width="auto" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnProfile_Click">
                 <WrapPanel FlowDirection="LeftToRight">
-                    <Image x:Name="imgProfile"  Stretch="Fill" Height="20" Width="20" Margin="5,0,0,0" Loaded="ImgProfile_Loaded"/>
+                    <Image x:Name="imgProfile" Stretch="Fill" Height="20" Width="20" Margin="5,0,0,0" Loaded="ImgProfile_Loaded"/>
                     <Label Content="PROFILE" HorizontalAlignment="Center"/>
                 </WrapPanel>
             </Button>

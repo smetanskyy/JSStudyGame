@@ -46,7 +46,7 @@
             <DatePicker x:Name="dateChoose" Margin="10,0,10,0"></DatePicker>
             <WrapPanel>
                 <Label Margin="10,0,0,0">Password</Label>
-                <Image x:Name="imgQuestionMakr" Width="15" Stretch="Fill" Height="15" Loaded="ImgQuestionMakr_Loaded">
+                <Image x:Name="imgQuestionMark" Width="15" Stretch="Fill" Height="15" Loaded="ImgQuestionMark_Loaded">
                     <Image.ToolTip>
                         <ToolTip>
                             <TextBlock Foreground="Green">
@@ -70,7 +70,7 @@
             </WrapPanel>
             <WrapPanel x:Name="wpPasswordTwoTitle" Visibility="Collapsed">
                 <Label Margin="10,0,0,0">Repeat</Label>
-                <Image x:Name="imgQuestionMakrTwo" Width="15" Stretch="Fill" Height="15" Loaded="ImgQuestionMakrTwo_Loaded" >
+                <Image x:Name="imgQuestionMarkTwo" Width="15" Stretch="Fill" Height="15" Loaded="ImgQuestionMarkTwo_Loaded" >
                     <Image.ToolTip>
                         <ToolTip>
                             <TextBlock Foreground="Green">

@@ -265,14 +265,14 @@ namespace JSStudyGame
 
         private void ImgQuestionMakr_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
-            imgQuestionMakr.Source = ImageEdit.CreateBitmapImage(path);
+            //string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
+            imgQuestionMakr.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "my_question_mark_icon.png"));
         }
 
         private void ImgQuestionMakrTwo_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
-            imgQuestionMakrTwo.Source = ImageEdit.CreateBitmapImage(path);
+            //string path = System.IO.Path.Combine(Environment.CurrentDirectory, "my_question_mark_icon.png");
+            imgQuestionMakrTwo.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "my_question_mark_icon.png"));
         }
 
         private void RadioBtnMale_Checked(object sender, RoutedEventArgs e)

@@ -32,8 +32,8 @@ namespace JSStudyGame
 
         private void ImgLogout_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "logout.png");
-            imgLogout.Source = ImageEdit.CreateBitmapImage(path);
+            //string path = System.IO.Path.Combine(Environment.CurrentDirectory, "logout.png");
+            imgLogout.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "logout.png"));
         }
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
@@ -54,8 +54,8 @@ namespace JSStudyGame
 
         private void ImgProfile_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, "profile.png");
-            imgProfile.Source = ImageEdit.CreateBitmapImage(path);
+            //string path = System.IO.Path.Combine(Environment.CurrentDirectory, "profile.png");
+            imgProfile.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "profile.png"));
         }
     }
 }
