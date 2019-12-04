@@ -120,7 +120,7 @@ namespace JSStudyGame
                 MessageBox.Show("Adding Additional Information error! Try again!");
             else
             {
-                MessageBox.Show("Account was successfully registered!");
+                MessageBox.Show("Account was successfully registered!\nWe sent you mail!");
             }
         }
 

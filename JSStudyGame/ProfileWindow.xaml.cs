@@ -353,7 +353,7 @@ namespace JSStudyGame
                 btnChangePhoto.Visibility = Visibility.Hidden;
                 btnSave.Visibility = Visibility.Hidden;
                 Window_Loaded(sender, e);
-                MessageBox.Show("Account was successfully changed!");
+                MessageBox.Show("Account was successfully changed!\nWe sent you mail!");
             }
         }
 
