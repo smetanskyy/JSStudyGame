@@ -92,13 +92,43 @@
                 <TextBox x:Name="txtPasswordTwoTxt" Margin="10,0,10,0" Width="150" MaxLength="15" Visibility="Collapsed"></TextBox>
                 <Button x:Name="btnShowPasswordTwo" Width="50" Click="BtnShowPasswordTwo_Click">Show</Button>
             </WrapPanel>
-            <Button x:Name="btnChange" Margin="40,20,40,0" Background="Aqua" Click="BtnChange_Click">CHANGE PROFILE</Button>
+            <Button x:Name="btnChange" Margin="40,50,40,0" Background="Aqua" Click="BtnChange_Click">CHANGE PROFILE</Button>
             <Button x:Name="btnChangePhoto" Margin="40,10,40,0" Background="Aqua" Click="BtnChangePhoto_Click" Visibility="Hidden">CHANGE PHOTO</Button>
             <Button x:Name="btnSave" Content="SAVE CHANGE" Margin="40,10,40,10" Background="Aquamarine" Click="BtnSave_Click" Visibility="Hidden"/>
         </StackPanel>
         
         <StackPanel Grid.Column="1" >
-            <Image x:Name="imgPhotoAndPicture" Margin="20,30,20,10" MinWidth="200" MinHeight="250" Loaded="ImgPhotoAndPicture_Loaded"></Image>
+            <Image x:Name="imgPhotoAndPicture" Margin="20,10,20,20" MinWidth="200" Height="250" Loaded="ImgPhotoAndPicture_Loaded"></Image>
+            <DockPanel x:Name="dpScore" HorizontalAlignment="Center" Loaded="DpScore_Loaded">
+                <StackPanel DockPanel.Dock="Left">
+                    <WrapPanel>
+                        <Label Margin="20,0,20,5" Background="LightSkyBlue" BorderBrush="Blue" BorderThickness="1px" MinWidth="140">TOTAL SCORE :</Label>
+                        <Label x:Name="lblTotal" MinWidth="40" FontWeight="Bold"></Label>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Margin="20,0,20,5" Background="LightGreen" BorderBrush="Green" BorderThickness="1px" MinWidth="140">CORRECT ANSWERS :</Label>
+                        <Label x:Name="lblCorrectAnswers" MinWidth="40" FontWeight="Bold"></Label>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Margin="20,0,20,5" Background="LightPink" BorderBrush="Red" BorderThickness="1px" MinWidth="140">INCORRECT ANSWERS :</Label>
+                        <Label x:Name="lblIncorrectAnswers" MinWidth="40" FontWeight="Bold"></Label>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Margin="20,0,20,5" Background="LightCyan" BorderBrush="Gray" BorderThickness="1px" MinWidth="140">SKIPPED ANSWERS :</Label>
+                        <Label x:Name="lblSkippedAnswers" MinWidth="40" FontWeight="Bold"></Label>
+                    </WrapPanel>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <WrapPanel>
+                        <Label Margin="15,0,20,5" Background="LightGoldenrodYellow" BorderBrush="YellowGreen" BorderThickness="1px" MinWidth="135">TIME IN GAME (min) :</Label>
+                        <Label x:Name="lblTimeGameInSeconds" MinWidth="40" FontWeight="Bold"></Label>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Margin="15,0,20,5" Background="LightSalmon" BorderBrush="Red" BorderThickness="1px" MinWidth="135">PROGRESS IN GAME :</Label>
+                        <Label x:Name="lblProgressInGame" MinWidth="40" FontWeight="Bold"></Label>
+                    </WrapPanel>
+                </StackPanel>
+            </DockPanel>
         </StackPanel>
     </Grid>
 </Window>

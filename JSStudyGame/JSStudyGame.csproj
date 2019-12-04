@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="ViewModels\PlayerAdditionalInfoVM.cs" />
     <Compile Include="ViewModels\PlayerVM.cs" />
+    <Compile Include="ViewModels\PlayerScoreVM.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

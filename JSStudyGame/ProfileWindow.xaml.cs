@@ -28,11 +28,13 @@ namespace JSStudyGame
         private BitmapImage photoUser;
         private PlayerVM playerVM;
         private PlayerAdditionalInfoVM playerAddInfoVM;
+        private PlayerScoreVM scoreVM;
         public ProfileWindow(string hostUrl)
         {
             _hostUrl = hostUrl;
             playerVM = new PlayerVM();
             playerAddInfoVM = new PlayerAdditionalInfoVM();
+            scoreVM = new PlayerScoreVM();
             InitializeComponent();
         }
 
@@ -371,6 +373,20 @@ namespace JSStudyGame
             btnChange.Visibility = Visibility.Collapsed;
             btnChangePhoto.Visibility = Visibility.Visible;
             btnSave.Visibility = Visibility.Visible;
+        }
+
+        private void DpScore_Loaded(object sender, RoutedEventArgs e)
+        {
+            string requestUrl = _hostUrl + $"/api/jsstudygame/score?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            scoreVM = ServerWorker.GetInfoFromServer<PlayerScoreVM>(requestUrl);
+            if (scoreVM == null)
+                return;
+            lblTotal.Content = scoreVM.TotalScore;
+            lblCorrectAnswers.Content = scoreVM.CorrectAnswers;
+            lblIncorrectAnswers.Content = scoreVM.IncorrectAnswers;
+            lblSkippedAnswers.Content = scoreVM.SkippedAnswers;
+            lblTimeGameInSeconds.Content = scoreVM.TimeGameInSeconds;
+            lblProgressInGame.Content = scoreVM.ProgressInGame;
         }
     }
 }
