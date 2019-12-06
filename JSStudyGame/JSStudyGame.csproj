@@ -88,6 +88,8 @@
     <Compile Include="ViewModels\PlayerAdditionalInfoVM.cs" />
     <Compile Include="ViewModels\PlayerVM.cs" />
     <Compile Include="ViewModels\PlayerScoreVM.cs" />
+    <Compile Include="ViewModels\SectionVM.cs" />
+    <Compile Include="ViewModels\TestVM.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
