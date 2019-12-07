@@ -16,10 +16,10 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="39*"/>
-            <RowDefinition Height="340*"/>
-            <RowDefinition Height="41*"/>
+            <RowDefinition Height="334*"/>
+            <RowDefinition Height="46*"/>
         </Grid.RowDefinitions>
-        <WrapPanel Grid.Row="0" FlowDirection="RightToLeft" Grid.ColumnSpan="2" Margin="467,0,-0.4,0.2">
+        <WrapPanel Grid.Row="0" FlowDirection="RightToLeft" Grid.ColumnSpan="2">
             <Button x:Name="btnLogout" Width="auto" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnLogout_Click">
                 <WrapPanel FlowDirection="LeftToRight">
                     <Image x:Name="imgLogout" Stretch="Fill" Height="20" Width="20" Margin="5,0,0,0" Loaded="ImgLogout_Loaded"/>
@@ -33,29 +33,52 @@
                 </WrapPanel>
             </Button>
         </WrapPanel>
-        <StackPanel x:Name="spStartGame" Visibility="Visible" Margin="20" Grid.Row="1" Grid.Column="0">
-
-            <WrapPanel>
-                <Label Background="LightGreen">Question</Label>
+        <StackPanel x:Name="spStartGame" Visibility="Visible" Margin="10,0,10,0" Grid.Row="1" Grid.Column="0">
+            <WrapPanel Margin="2">
+                <Label Background="LightSkyBlue">SECTION :</Label>
+                <Label x:Name="lblSection" Background="LightSkyBlue"></Label>
+            </WrapPanel>
+            <WrapPanel Margin="2">
+                <Label Background="LightGreen">QUESTION :</Label>
                 <Label x:Name="lblQuestionN" Background="LightGreen"></Label>
+                <Label x:Name="lblResult" HorizontalAlignment="Center" Width="200" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic" Margin="50,0,0,0"></Label>
             </WrapPanel>
+            <TextBox x:Name="txtQuestion" TextWrapping="Wrap" Background="LightBlue" Padding="10" IsReadOnly="True" MinHeight="100" Height="auto" Margin="20,10,20,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" MinWidth="300" FontSize="14"></TextBox>
+            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="auto">
+                <Button x:Name="btnAnswerA" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="10,10,50,10" Click="BtnAnswer_Click" >
+                    <TextBlock x:Name="txtbtnAnswerA" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </Button>
 
-            <TextBox x:Name="txtQuestion" Padding="10" IsReadOnly="True" MinHeight="100" Height="auto" Margin="20,30,20,20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" MinWidth="300" FontSize="14"></TextBox>
-            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="auto">
-                <Button x:Name="btnAnswerA" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="10,10,50,10" Click="BtnAnswer_Click" ></Button>
-                <Button x:Name="btnAnswerB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="50,10,10,10" Click="BtnAnswer_Click"></Button>
+                <Button x:Name="btnAnswerB" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="50,10,10,10" Click="BtnAnswer_Click">
+                    <TextBlock x:Name="txtbtnAnswerB" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </Button>
             </WrapPanel>
             <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="auto">
-                <Button x:Name="btnAnswerC" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="10,10,50,10" Click="BtnAnswer_Click"></Button>
-                <Button x:Name="btnAnswerD" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="50,10,10,10" Click="BtnAnswer_Click"></Button>
+                <Button x:Name="btnAnswerC" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="10,10,50,10" Click="BtnAnswer_Click">
+                    <TextBlock x:Name="txtbtnAnswerC" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </Button>
+                <Button x:Name="btnAnswerD" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="150" MinHeight="30" Margin="50,10,10,10" Click="BtnAnswer_Click">
+                    <TextBlock x:Name="txtbtnAnswerD" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </Button>
             </WrapPanel>
-            <WrapPanel FlowDirection="RightToLeft">
-                <Button  DockPanel.Dock="Right" Width="100" Background="AliceBlue">get information</Button>
-            </WrapPanel>
+            <Button x:Name="btnNextQuestion" Margin="10,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2" Width="150" Background="LightYellow" Content=">> next question" Click="BtnNextQuestion_Click"></Button>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button x:Name="btnStartGame" Margin="30,50,30,10" Click="BtmStartGame_Click" >START GAME</Button>
-            <Button x:Name="btnContinueGame" Margin="50,10,50,10">CONTINUE GAME</Button>
+        <WrapPanel Grid.Row="2" Grid.Column="0" Margin="10,10,10,10" FlowDirection="RightToLeft">
+            <Button x:Name="btnReference" Width="120" Background="LightGreen" Click="BtnReference_Click">Read about solution</Button>
+        </WrapPanel>
+        <StackPanel Grid.Column="1" Margin="5" Grid.Row="1">
+            <Button x:Name="btnStartGame" Margin="30,50,30,10" Click="BtmStartGame_Click" >START NEW GAME</Button>
+            <Button x:Name="btnContinueGame" Margin="50,10,50,10" Click="BtnContinueGame_Click">CONTINUE GAME</Button>
+            <ComboBox x:Name="cbSkipped" IsReadOnly="True" SelectionChanged="CbSkipped_SelectionChanged" Margin="50,0,50,0">
+                <ComboBoxItem IsSelected="True">
+                    Skipped answers
+                </ComboBoxItem>
+            </ComboBox>
+            <ComboBox x:Name="cbWrong" IsReadOnly="True" SelectionChanged="CbWrong_SelectionChanged" Margin="50,5,50,0">
+                <ComboBoxItem IsSelected="True">
+                    Wrong answers
+                </ComboBoxItem>
+            </ComboBox>
             <Button x:Name="btnEndGame" Margin="30,40,30,10" Click="BtmEndGame_Click">END GAME</Button>
         </StackPanel>
     </Grid>

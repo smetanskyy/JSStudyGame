@@ -90,7 +90,7 @@ namespace JSStudyGame
             await Task.Run(() =>
             {
                 Random random = new Random();
-                string imgPathStr = _hostUrl + $"/images/jsImg{random.Next(20)}.jpg";
+                string imgPathStr = _hostUrl + $"/images/jsImg{random.Next(1, 20)}.jpg";
                 Uri resourceUri = new Uri(imgPathStr, UriKind.Absolute);
                 this.Dispatcher.Invoke(() =>
                 {
