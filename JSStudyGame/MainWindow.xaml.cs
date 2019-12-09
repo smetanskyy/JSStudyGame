@@ -38,6 +38,7 @@ namespace JSStudyGame
         private bool _isGame = false;
         private List<string> _skippedAnswer;
         private List<string> _wrongAnswer;
+        private int _amountoftests;
         public MainWindow(string hostUrl)
         {
             _hostUrl = hostUrl;
@@ -49,6 +50,13 @@ namespace JSStudyGame
             _playerAddInfo = ServerWorker.GetInfoFromServer<PlayerAdditionalInfoVM>(requestUrl);
             requestUrl = _hostUrl + $"/api/jsstudygame/score?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             _playerScore = ServerWorker.GetInfoFromServer<PlayerScoreVM>(requestUrl);
+            _playerScore.IdPlayerScore = _player.Id;
+
+            requestUrl = _hostUrl + $"/api/jsstudygame/amountoftests?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            _amountoftests = ServerWorker.GetInfoFromServer<int>(requestUrl);
+            if (_amountoftests == 0)
+                _amountoftests = 1;
+
             spStartGame.Visibility = Visibility.Hidden;
             btnReference.Visibility = Visibility.Hidden;
 
@@ -77,7 +85,6 @@ namespace JSStudyGame
             }
             Task.Run(() =>
             {
-                Random random = new Random();
                 string imgPathStr = _hostUrl + $"/images/jsImg2.jpg";
                 Uri resourceUri = new Uri(imgPathStr, UriKind.Absolute);
                 this.Dispatcher.Invoke(() =>
@@ -122,8 +129,6 @@ namespace JSStudyGame
             _player = ServerWorker.GetInfoFromServer<PlayerVM>(requestUrl);
             requestUrl = _hostUrl + $"/api/jsstudygame/addinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             _playerAddInfo = ServerWorker.GetInfoFromServer<PlayerAdditionalInfoVM>(requestUrl);
-            requestUrl = _hostUrl + $"/api/jsstudygame/score?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
-            _playerScore = ServerWorker.GetInfoFromServer<PlayerScoreVM>(requestUrl);
             this.ShowDialog();
         }
 
@@ -379,8 +384,10 @@ namespace JSStudyGame
 
         private void SaveScore()
         {
-            _playerScore.AnswersSkipped = null;
-            _playerScore.AnswersWrong = null;
+            _playerScore.AnswersSkipped = "";
+            _playerScore.AnswersWrong = "";
+
+            _playerScore.ProgressInGame = _playerScore.CorrectAnswers * 100 / _amountoftests;
 
             foreach (var item in _skippedAnswer)
             {
@@ -398,7 +405,7 @@ namespace JSStudyGame
             }
 
             requestUrl = _hostUrl + $"/api/jsstudygame/score";
-            ServerWorker.ChangePlayerToServer(_playerScore, requestUrl);
+            int result = ServerWorker.ChangePlayerToServer(_playerScore, requestUrl);
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -409,9 +416,6 @@ namespace JSStudyGame
 
         private void CbSkipped_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _isGame = true;
-            spStartGame.Visibility = Visibility.Visible;
-            btnReference.Visibility = Visibility.Visible;
             string idStr;
             try
             {
@@ -422,6 +426,9 @@ namespace JSStudyGame
                 return;
             }
 
+            _isGame = true;
+            spStartGame.Visibility = Visibility.Visible;
+            btnReference.Visibility = Visibility.Visible;
             int idTest = 1;
             try
             {
@@ -436,9 +443,6 @@ namespace JSStudyGame
 
         private void CbWrong_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _isGame = true;
-            spStartGame.Visibility = Visibility.Visible;
-            btnReference.Visibility = Visibility.Visible;
             string idStr;
             try
             {
@@ -449,6 +453,9 @@ namespace JSStudyGame
                 return;
             }
 
+            _isGame = true;
+            spStartGame.Visibility = Visibility.Visible;
+            btnReference.Visibility = Visibility.Visible;
             int idTest = 1;
             try
             {
@@ -472,8 +479,10 @@ namespace JSStudyGame
 
             int idTest = _playerScore.CurrentQuestionNoAnswer;
             if (idTest <= 0)
+            {
                 idTest = 1;
-
+                _playerScore.CurrentQuestionNoAnswer = 1;
+            }
             _isGame = true;
             if (!UpdateQuestion(idTest))
                 BtmEndGame_Click(sender, e);

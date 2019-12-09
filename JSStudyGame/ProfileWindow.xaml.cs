@@ -386,7 +386,7 @@ namespace JSStudyGame
             lblIncorrectAnswers.Content = scoreVM.IncorrectAnswers;
             lblSkippedAnswers.Content = scoreVM.SkippedAnswers;
             lblTimeGameInSeconds.Content = scoreVM.TimeGameInSeconds;
-            lblProgressInGame.Content = scoreVM.ProgressInGame;
+            lblProgressInGame.Content = scoreVM.ProgressInGame + " %";
         }
     }
 }
