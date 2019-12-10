@@ -120,7 +120,7 @@
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
                     <WrapPanel>
-                        <Label Margin="15,0,20,5" Background="LightGoldenrodYellow" BorderBrush="YellowGreen" BorderThickness="1px" MinWidth="135">TIME IN GAME (min) :</Label>
+                        <Label Margin="15,0,20,5" Background="LightGoldenrodYellow" BorderBrush="YellowGreen" BorderThickness="1px" MinWidth="135">TIME IN GAME (sec) :</Label>
                         <Label x:Name="lblTimeGameInSeconds" MinWidth="40" FontWeight="Bold"></Label>
                     </WrapPanel>
                     <WrapPanel>

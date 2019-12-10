@@ -19,6 +19,7 @@
             <RowDefinition Height="334*"/>
             <RowDefinition Height="46*"/>
         </Grid.RowDefinitions>
+        <Label x:Name="lblResultEnd" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" MinWidth="220" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic" Height="50"></Label>
         <WrapPanel Grid.Row="0" FlowDirection="RightToLeft" Grid.ColumnSpan="2">
             <Button x:Name="btnLogout" Width="auto" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnLogout_Click">
                 <WrapPanel FlowDirection="LeftToRight">

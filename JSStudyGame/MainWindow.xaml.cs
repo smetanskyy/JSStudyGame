@@ -39,6 +39,7 @@ namespace JSStudyGame
         private List<string> _skippedAnswer;
         private List<string> _wrongAnswer;
         private int _amountoftests;
+        private Stopwatch _stopwatch;
         public MainWindow(string hostUrl)
         {
             _hostUrl = hostUrl;
@@ -83,6 +84,7 @@ namespace JSStudyGame
                     cbWrong.Items.Add($"<<  {item}  >>");
                 }
             }
+            _stopwatch = new Stopwatch();
             Task.Run(() =>
             {
                 string imgPathStr = _hostUrl + $"/images/jsImg2.jpg";
@@ -102,6 +104,11 @@ namespace JSStudyGame
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
         {
+            if (_isGame)
+            {
+                MessageBox.Show("At first you must end the game!");
+                return;
+            }
             MainWindow.playerLogin = "none";
             MainWindow.playerPassword = "none";
             _isGame = false;
@@ -263,6 +270,11 @@ namespace JSStudyGame
             if (ServerWorker.ChangePlayerToServer(_playerScore, requestUrl) <= 0)
                 BtmEndGame_Click(sender, e);
 
+            if (_stopwatch.IsRunning)
+                _stopwatch.Restart();
+            else
+                _stopwatch.Start();
+
             spStartGame.Visibility = Visibility.Visible;
             btnReference.Visibility = Visibility.Visible;
             btnNextQuestion.Visibility = Visibility.Visible;
@@ -274,14 +286,31 @@ namespace JSStudyGame
 
         private void BtmEndGame_Click(object sender, RoutedEventArgs e)
         {
-            spStartGame.Visibility = Visibility.Hidden;
+            cbSkipped.SelectedIndex = 0;
+            cbWrong.SelectedIndex = 0;
+            if(_stopwatch.IsRunning)
+            {
+                _stopwatch.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = _stopwatch.Elapsed;
+                int timeGame = (int)ts.TotalSeconds;
+                _playerScore.TimeGameInSeconds += timeGame;
+                SaveScore();
+            }
             _isGame = false;
+            spStartGame.Visibility = Visibility.Hidden;
             btnReference.Visibility = Visibility.Hidden;
         }
 
         private bool UpdateQuestion(int idTest)
         {
             _isAnswer = false;
+            if (CheckIsWinOrEndQuestions(idTest))
+                return false;
+            spStartGame.Visibility = Visibility.Visible;
+            btnReference.Visibility = Visibility.Visible;
+            btnNextQuestion.Visibility = Visibility.Visible;
+
             btnAnswerA.Background = Brushes.LightGray;
             btnAnswerB.Background = Brushes.LightGray;
             btnAnswerC.Background = Brushes.LightGray;
@@ -353,6 +382,37 @@ namespace JSStudyGame
             return true;
         }
 
+        private bool CheckIsWinOrEndQuestions(int idTest)
+        {
+            lblResultEnd.Content = null;
+            lblResultEnd.Background = null;
+            lblResultEnd.Foreground = null;
+
+            if (_playerScore.CorrectAnswers == _amountoftests)
+            {
+                lblResultEnd.Content = "Congratulation! You are win!";
+                lblResultEnd.Background = Brushes.LightSkyBlue;
+                lblResultEnd.Foreground = Brushes.Yellow;
+
+                spStartGame.Visibility = Visibility.Hidden;
+                btnReference.Visibility = Visibility.Hidden;
+
+                return true;
+            }
+            else if (idTest - 1 == _amountoftests)
+            {
+                lblResultEnd.Content = "We sorry! It was the last question!";
+                lblResultEnd.Background = Brushes.LightGray;
+                lblResultEnd.Foreground = Brushes.DarkGray;
+
+                spStartGame.Visibility = Visibility.Hidden;
+                btnReference.Visibility = Visibility.Hidden;
+
+                return true;
+            }
+            else return false;
+        }
+
         private void BtnReference_Click(object sender, RoutedEventArgs e)
         {
             if (_isGame)
@@ -410,7 +470,17 @@ namespace JSStudyGame
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            if (_stopwatch.IsRunning)
+            {
+                _stopwatch.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = _stopwatch.Elapsed;
+                int timeGame = (int)ts.TotalSeconds;
+                _playerScore.TimeGameInSeconds += timeGame;
+                SaveScore();
+            }
             spStartGame.Visibility = Visibility.Hidden;
+            btnReference.Visibility = Visibility.Hidden;
             _isGame = false;
         }
 
@@ -437,6 +507,12 @@ namespace JSStudyGame
                 idTest = int.Parse(idStr);
             }
             catch (Exception) { Debug.WriteLine("Something wrong"); }
+
+            if (_stopwatch.IsRunning)
+                _stopwatch.Restart();
+            else
+                _stopwatch.Start();
+
             UpdateQuestion(idTest);
             btnNextQuestion.Visibility = Visibility.Hidden;
         }
@@ -464,6 +540,12 @@ namespace JSStudyGame
                 idTest = int.Parse(idStr);
             }
             catch (Exception) { Debug.WriteLine("Something wrong"); }
+
+            if (_stopwatch.IsRunning)
+                _stopwatch.Restart();
+            else
+                _stopwatch.Start();
+
             UpdateQuestion(idTest);
             btnNextQuestion.Visibility = Visibility.Hidden;
         }
@@ -473,16 +555,18 @@ namespace JSStudyGame
             cbWrong.SelectedItem = cbWrong.Items[0];
             cbSkipped.SelectedItem = cbSkipped.Items[0];
 
-            spStartGame.Visibility = Visibility.Visible;
-            btnReference.Visibility = Visibility.Visible;
-            btnNextQuestion.Visibility = Visibility.Visible;
-
             int idTest = _playerScore.CurrentQuestionNoAnswer;
             if (idTest <= 0)
             {
                 idTest = 1;
                 _playerScore.CurrentQuestionNoAnswer = 1;
             }
+
+            if (_stopwatch.IsRunning)
+                _stopwatch.Restart();
+            else
+                _stopwatch.Start();
+
             _isGame = true;
             if (!UpdateQuestion(idTest))
                 BtmEndGame_Click(sender, e);
