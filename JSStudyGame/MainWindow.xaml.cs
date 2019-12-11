@@ -58,6 +58,9 @@ namespace JSStudyGame
             if (_amountoftests == 0)
                 _amountoftests = 1;
 
+            if (_player.IsAdmin)
+                btnAdmin.Visibility = Visibility.Visible;
+
             spStartGame.Visibility = Visibility.Hidden;
             btnReference.Visibility = Visibility.Hidden;
 
@@ -570,6 +573,29 @@ namespace JSStudyGame
             _isGame = true;
             if (!UpdateQuestion(idTest))
                 BtmEndGame_Click(sender, e);
+        }
+
+        private void BtnAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isGame)
+            {
+                MessageBox.Show("At first you must end the game!");
+                return;
+            }
+            this.Hide();
+            AdminWindow admin = new AdminWindow(_hostUrl);
+            admin.Owner = this;
+            admin.ShowDialog();
+            requestUrl = _hostUrl + $"/api/jsstudygame/login?emailOrLogin={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            _player = ServerWorker.GetInfoFromServer<PlayerVM>(requestUrl);
+            requestUrl = _hostUrl + $"/api/jsstudygame/addinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            _playerAddInfo = ServerWorker.GetInfoFromServer<PlayerAdditionalInfoVM>(requestUrl);
+            this.ShowDialog();
+        }
+
+        private void ImgAdmib_Loaded(object sender, RoutedEventArgs e)
+        {
+            imgAdmin.Source = ImageEdit.CreateBitmapImage(System.IO.Path.Combine(Helper.GetPathToSolution(), "Images", "admin.png"));
         }
     }
 }

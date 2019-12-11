@@ -33,6 +33,13 @@
                     <Label Content="PROFILE" HorizontalAlignment="Center"/>
                 </WrapPanel>
             </Button>
+            <Button x:Name="btnAdmin" Visibility="Hidden" Width="auto" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnAdmin_Click">
+                <WrapPanel FlowDirection="LeftToRight">
+                    <Image x:Name="imgAdmin" Stretch="Fill" Height="20" Width="20" Margin="5,0,0,0" Loaded="ImgAdmib_Loaded"/>
+                    <Label Content="ADMIN" HorizontalAlignment="Center"/>
+                </WrapPanel>
+            </Button>
+            
         </WrapPanel>
         <StackPanel x:Name="spStartGame" Visibility="Visible" Margin="10,0,10,0" Grid.Row="1" Grid.Column="0">
             <WrapPanel Margin="2">
