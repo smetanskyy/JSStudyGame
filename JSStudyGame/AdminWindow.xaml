@@ -11,18 +11,15 @@
             <Setter Property="Control.FontFamily" Value="Verdana" />
             <Setter Property="Control.Background" Value="LightSeaGreen" />
             <Setter Property="Control.Foreground" Value="White" />
-            <Setter Property="Control.Margin" Value="10" />
         </Style>
     </Window.Resources>
     <Grid>
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0" Background="GhostWhite">
-                <Button Name="btnAdd" Margin="10,20,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}">ADD PLAYER</Button>
-                <Button Name="btnChange" Margin="10,5,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}">CHANGE PLAYER</Button>
-                <Button Name="btnRemove" Margin="10,5,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}">REMOVE PLAYER</Button>
-
-                <Button Name="btnShowAll" Margin="10, 30, 5, 20" Width="110" Style="{StaticResource LightSeaGreenAndWhite}">SHOW ALL</Button>
-
+                <Button Name="btnAdd" Margin="10,20,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}" Click="BtnAdd_Click">ADD PLAYER</Button>
+                <Button Name="btnChange" Margin="10,5,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}" Click="BtnChange_Click">CHANGE PLAYER</Button>
+                <Button Name="btnRemove" Margin="10,5,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}" Click="BtnRemove_Click">REMOVE PLAYER</Button>
+                <Button Name="btnShowAll" Margin="10, 30, 5, 20" Width="110" Style="{StaticResource LightSeaGreenAndWhite}" Click="BtnShowAll_Click">SHOW ALL</Button>
                 <WrapPanel>
                     <Button x:Name="btnSearch" Margin="5" Width="50" Background="LightGreen">SAERCH</Button>
                     <TextBox x:Name="txtboxSearch" MinWidth="100" Margin="5"></TextBox>
@@ -31,10 +28,9 @@
             <StackPanel DockPanel.Dock="Left">
                 <DataGrid Name="dgShow" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="clnLogin" Header="Name" Binding="{Binding Login}" Width="70*" />
+                        <DataGridTextColumn x:Name="clnLogin" Header="LOGIN" Binding="{Binding Login}" Width="70*" />
                         <DataGridTextColumn x:Name="clnPassword" Header="Password" Binding="{Binding Password}" Width="70*" />
                         <DataGridTextColumn x:Name="clnEmail" Header="E-mail" Binding="{Binding Email}" Width="70*" />
-
                     </DataGrid.Columns>
                     <DataGrid.RowDetailsTemplate>
                         <DataTemplate>
@@ -54,6 +50,9 @@
                                         <Label Content="GENDER: "></Label>
                                         <Label Content="{Binding Gender}" Foreground="DarkBlue"></Label>
                                     </WrapPanel>
+                                </StackPanel>
+                                <StackPanel Margin="10">
+                                    <CheckBox x:Name="cbIsAdmin" IsChecked="{Binding IsAdmin}" Margin="10,10,10,0" Checked="CbIsAdmin_Checked" Unchecked="CbIsAdmin_Checked">IS ADMIN</CheckBox>
                                 </StackPanel>
                             </WrapPanel>
                         </DataTemplate>

@@ -61,7 +61,8 @@ namespace JSStudyGame
                     main = new MainWindow(_hostUrl);
                     main.Owner = this;
                     main.ShowDialog();
-                    
+                    txtLogin.Text = $"{MainWindow.playerLogin}";
+                    txtPassword.Text = $"{MainWindow.playerPassword}";
                     Show();
                 }
             }

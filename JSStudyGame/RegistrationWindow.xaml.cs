@@ -121,6 +121,7 @@ namespace JSStudyGame
             else
             {
                 MessageBox.Show("Account was successfully registered!\nWe sent you mail!");
+                this.Close();
             }
         }
 

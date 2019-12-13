@@ -93,6 +93,7 @@
                 <Button x:Name="btnShowPasswordTwo" Width="50" Click="BtnShowPasswordTwo_Click">Show</Button>
             </WrapPanel>
             <Button x:Name="btnChange" Margin="40,50,40,0" Background="Aqua" Click="BtnChange_Click">CHANGE PROFILE</Button>
+            <Button x:Name="btnDelete" Margin="40,5,40,0" Background="Coral" Click="BtnDelete_Click">DELETE PLAYER</Button>
             <Button x:Name="btnChangePhoto" Margin="40,10,40,0" Background="Aqua" Click="BtnChangePhoto_Click" Visibility="Hidden">CHANGE PHOTO</Button>
             <Button x:Name="btnSave" Content="SAVE CHANGE" Margin="40,10,40,10" Background="Aquamarine" Click="BtnSave_Click" Visibility="Hidden"/>
         </StackPanel>
@@ -127,6 +128,7 @@
                         <Label Margin="15,0,20,5" Background="LightSalmon" BorderBrush="Red" BorderThickness="1px" MinWidth="135">PROGRESS IN GAME :</Label>
                         <Label x:Name="lblProgressInGame" MinWidth="40" FontWeight="Bold"></Label>
                     </WrapPanel>
+                    <Button x:Name="btnDeleteScore" Width="100" Margin="20" Click="BtnDeleteScore_Click">Delete score</Button>
                 </StackPanel>
             </DockPanel>
         </StackPanel>

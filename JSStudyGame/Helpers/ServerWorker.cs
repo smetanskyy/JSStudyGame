@@ -107,5 +107,30 @@ namespace JSStudyGame.Helpers
                 return 0;
             }
         }
+
+        public static bool DeletePlayer(string requestUrl)
+        {
+            bool result = false;
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(requestUrl);
+                request.Method = "DELETE";
+                String resultStr = String.Empty;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    Stream dataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    resultStr = reader.ReadToEnd();
+                    reader.Close();
+                    dataStream.Close();
+                }
+                result = JsonConvert.DeserializeObject<bool>(resultStr);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return result;
+        }
     }
 }

@@ -44,30 +44,27 @@ namespace JSStudyGame
                 TotalPlayers = 1;
         }
 
-
-        private async void GetDataFromWebServer()
+        private void GetDataFromWebServer()
         {
-            await Task.Run(() =>
+
+            try
             {
-                try
+                string requestUrl = _hostUrl + $"/api/jsstudygame/fullinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}&page={_activePage}";
+                _playersFullInfo = ServerWorker.GetInfoFromServer<ObservableCollection<PlayerFullInfo>>(requestUrl);
+                foreach (var item in _playersFullInfo)
                 {
-                    string requestUrl = _hostUrl + $"/api/jsstudygame/fullinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}&page={_activePage}";
-                    _playersFullInfo = ServerWorker.GetInfoFromServer<ObservableCollection<PlayerFullInfo>>(requestUrl);
-                    foreach (var item in _playersFullInfo)
-                    {
-                        item.Photo = _hostUrl + $"/photos/{item.Photo}";
-                    }
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        dgShow.ItemsSource = _playersFullInfo;
-                        MyPadding();
-                    }));
+                    item.Photo = _hostUrl + $"/photos/{item.Photo}";
                 }
-                catch (Exception)
-                {
-                    MessageBox.Show("Cannot connect to server!");
-                }
-            });
+
+                dgShow.ItemsSource = _playersFullInfo;
+                MyPadding();
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Cannot connect to server!");
+            }
+
         }
 
 
@@ -191,7 +188,128 @@ namespace JSStudyGame
             else
                 _activePage = Convert.ToInt32(btn.Content.ToString());
 
-            //GetDataFromWebServer();
+            GetDataFromWebServer();
+        }
+
+        private void CbIsAdmin_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!(dgShow.SelectedItem is PlayerFullInfo))
+            {
+                dgShow.SelectedItem = null;
+                return;
+            }
+
+            PlayerFullInfo playerFull = dgShow.SelectedItem as PlayerFullInfo;
+            PlayerVM player = new PlayerVM()
+            {
+                Id = playerFull.Id,
+                Login = playerFull.Login,
+                Email = playerFull.Email,
+                Password = playerFull.Password,
+                IsAdmin = ((CheckBox)sender).IsChecked == true ? true : false
+            };
+
+            string url = _hostUrl + "/api/jsstudygame/player";
+            int mistake = ServerWorker.ChangePlayerToServer(player, url);
+
+            if (mistake <= 0)
+            {
+                MessageBox.Show("Adding error! Try again!");
+                return;
+            }
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(dgShow.SelectedItem is PlayerFullInfo))
+            {
+                dgShow.SelectedItem = null;
+                return;
+            }
+            string login = MainWindow.playerLogin;
+            string password = MainWindow.playerPassword;
+            this.Hide();
+
+            RegistrationWindow registration = new RegistrationWindow(_hostUrl);
+            registration.Owner = this;
+            registration.ShowDialog();
+
+            MainWindow.playerLogin = login;
+            MainWindow.playerPassword = password;
+            Window_Loaded(sender, e);
+            this.ShowDialog();
+        }
+
+        private void BtnChange_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(dgShow.SelectedItem is PlayerFullInfo))
+            {
+                dgShow.SelectedItem = null;
+                return;
+            }
+            string login = MainWindow.playerLogin;
+            string password = MainWindow.playerPassword;
+
+            MainWindow.playerLogin = ((PlayerFullInfo)dgShow.SelectedItem).Login;
+            MainWindow.playerPassword = ((PlayerFullInfo)dgShow.SelectedItem).Password;
+
+            this.Hide();
+            ProfileWindow profile = new ProfileWindow(_hostUrl);
+            profile.Owner = this;
+            profile.ShowDialog();
+
+            var currentPlayer = _playersFullInfo.SingleOrDefault(p => p.Login == MainWindow.playerLogin && p.Password == MainWindow.playerPassword);
+
+            var requestUrl = _hostUrl + $"/api/jsstudygame/login?emailOrLogin={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            var player = ServerWorker.GetInfoFromServer<PlayerVM>(requestUrl);
+            requestUrl = _hostUrl + $"/api/jsstudygame/addinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            var playerAddInfo = ServerWorker.GetInfoFromServer<PlayerAdditionalInfoVM>(requestUrl);
+
+            currentPlayer.Id = player.Id;
+            currentPlayer.Password = player.Password;
+            currentPlayer.Email = player.Email;
+            currentPlayer.Login = player.Login;
+            currentPlayer.IsAdmin = player.IsAdmin;
+            currentPlayer.Name = playerAddInfo.Name;
+            currentPlayer.Surname = playerAddInfo.Surname;
+            currentPlayer.Photo = _hostUrl + $"/photos/{playerAddInfo.Photo}";
+            currentPlayer.BirthDate = playerAddInfo.BirthDate;
+            currentPlayer.Gender = playerAddInfo.Gender == true ? "male" : "female";
+
+            MainWindow.playerLogin = login;
+            MainWindow.playerPassword = password;
+
+            this.ShowDialog();
+        }
+
+        private void BtnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(dgShow.SelectedItem is PlayerFullInfo))
+            {
+                dgShow.SelectedItem = null;
+                return;
+            }
+            PlayerFullInfo playerFull = dgShow.SelectedItem as PlayerFullInfo;
+            dgShow.SelectedItem = null;
+
+            string url = _hostUrl + $"/api/jsstudygame/player?login={playerFull.Login}&password={playerFull.Password}";
+            if (ServerWorker.DeletePlayer(url) == true)
+            {
+                if (playerFull.Login == MainWindow.playerLogin && playerFull.Password == MainWindow.playerPassword)
+                {
+                    MainWindow.playerLogin = "none";
+                    MainWindow.playerPassword = "none";
+                    this.Close();
+                    return;
+                }
+                else
+                    Window_Loaded(sender, e);
+            }
+        }
+
+        private void BtnShowAll_Click(object sender, RoutedEventArgs e)
+        {
+            Window_Loaded(sender, e);
         }
     }
 }

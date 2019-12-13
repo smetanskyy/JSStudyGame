@@ -302,7 +302,7 @@ namespace JSStudyGame
             playerVM.Login = txtLogin.Text;
             playerVM.Email = txtEmail.Text;
             playerVM.Password = txtPasswordOne.Password;
-            
+
             string url = _hostUrl + "/api/jsstudygame/player";
             int mistake = ServerWorker.ChangePlayerToServer(playerVM, url);
 
@@ -350,6 +350,7 @@ namespace JSStudyGame
                 wpPasswordTwo.Visibility = Visibility.Collapsed;
                 wpPasswordTwoTitle.Visibility = Visibility.Collapsed;
                 btnChange.Visibility = Visibility.Visible;
+                btnDelete.Visibility = Visibility.Visible;
                 btnChangePhoto.Visibility = Visibility.Hidden;
                 btnSave.Visibility = Visibility.Hidden;
                 Window_Loaded(sender, e);
@@ -371,6 +372,7 @@ namespace JSStudyGame
             wpPasswordTwo.Visibility = Visibility.Visible;
             wpPasswordTwoTitle.Visibility = Visibility.Visible;
             btnChange.Visibility = Visibility.Collapsed;
+            btnDelete.Visibility = Visibility.Collapsed;
             btnChangePhoto.Visibility = Visibility.Visible;
             btnSave.Visibility = Visibility.Visible;
         }
@@ -387,6 +389,35 @@ namespace JSStudyGame
             lblSkippedAnswers.Content = scoreVM.SkippedAnswers;
             lblTimeGameInSeconds.Content = scoreVM.TimeGameInSeconds;
             lblProgressInGame.Content = scoreVM.ProgressInGame + " %";
+        }
+
+        private void BtnDeleteScore_Click(object sender, RoutedEventArgs e)
+        {
+            scoreVM.IdPlayerScore = playerVM.Id;
+            scoreVM.TotalScore = 0;
+            scoreVM.TimeGameInSeconds = 0;
+            scoreVM.SkippedAnswers = 0;
+            scoreVM.ProgressInGame = 0;
+            scoreVM.IncorrectAnswers = 0;
+            scoreVM.CurrentQuestionNoAnswer = 1;
+            scoreVM.CorrectAnswers = 0;
+            scoreVM.AnswersWrong = "";
+            scoreVM.AnswersSkipped = "";
+
+            string requestUrl = _hostUrl + $"/api/jsstudygame/score";
+            if (ServerWorker.ChangePlayerToServer(scoreVM, requestUrl) > 0)
+                DpScore_Loaded(sender, e);
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            string url = _hostUrl + $"/api/jsstudygame/player?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            if (ServerWorker.DeletePlayer(url) == true)
+            {
+                    MainWindow.playerLogin = "none";
+                    MainWindow.playerPassword = "none";
+                    this.Close();
+            }
         }
     }
 }

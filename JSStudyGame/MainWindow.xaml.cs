@@ -135,10 +135,22 @@ namespace JSStudyGame
             ProfileWindow profile = new ProfileWindow(_hostUrl);
             profile.Owner = this;
             profile.ShowDialog();
+            if (MainWindow.playerLogin == "none" && MainWindow.playerPassword == "none")
+            {
+                this.Close();
+                return;
+            }
+            
             requestUrl = _hostUrl + $"/api/jsstudygame/login?emailOrLogin={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             _player = ServerWorker.GetInfoFromServer<PlayerVM>(requestUrl);
             requestUrl = _hostUrl + $"/api/jsstudygame/addinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             _playerAddInfo = ServerWorker.GetInfoFromServer<PlayerAdditionalInfoVM>(requestUrl);
+
+            requestUrl = _hostUrl + $"/api/jsstudygame/score?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            _playerScore = ServerWorker.GetInfoFromServer<PlayerScoreVM>(requestUrl);
+            _playerScore.IdPlayerScore = _player.Id;
+
+
             this.ShowDialog();
         }
 
@@ -586,10 +598,22 @@ namespace JSStudyGame
             AdminWindow admin = new AdminWindow(_hostUrl);
             admin.Owner = this;
             admin.ShowDialog();
+
+            if(MainWindow.playerLogin == "none" && MainWindow.playerPassword == "none")
+            {
+                this.Close();
+                return;
+            }
+
             requestUrl = _hostUrl + $"/api/jsstudygame/login?emailOrLogin={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             _player = ServerWorker.GetInfoFromServer<PlayerVM>(requestUrl);
             requestUrl = _hostUrl + $"/api/jsstudygame/addinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             _playerAddInfo = ServerWorker.GetInfoFromServer<PlayerAdditionalInfoVM>(requestUrl);
+
+            requestUrl = _hostUrl + $"/api/jsstudygame/score?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            _playerScore = ServerWorker.GetInfoFromServer<PlayerScoreVM>(requestUrl);
+            _playerScore.IdPlayerScore = _player.Id;
+
             this.ShowDialog();
         }
 
