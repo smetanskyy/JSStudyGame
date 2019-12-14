@@ -21,7 +21,7 @@
                 <Button Name="btnRemove" Margin="10,5,10,5" Width="130" Style="{StaticResource LightSeaGreenAndWhite}" Click="BtnRemove_Click">REMOVE PLAYER</Button>
                 <Button Name="btnShowAll" Margin="10, 30, 5, 20" Width="110" Style="{StaticResource LightSeaGreenAndWhite}" Click="BtnShowAll_Click">SHOW ALL</Button>
                 <WrapPanel>
-                    <Button x:Name="btnSearch" Margin="5" Width="50" Background="LightGreen">SAERCH</Button>
+                    <Button x:Name="btnSearch" Margin="5" Width="50" Background="LightGreen" Click="BtnSearch_Click">SAERCH</Button>
                     <TextBox x:Name="txtboxSearch" MinWidth="100" Margin="5"></TextBox>
                 </WrapPanel>
             </StackPanel>

@@ -27,6 +27,7 @@ namespace JSStudyGame
         public int TotalPlayers { get; set; }
         private int _activePage;
         private int _pages;
+        private string _sword = null;
 
         public AdminWindow(string hostUrl)
         {
@@ -37,20 +38,28 @@ namespace JSStudyGame
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GetDataFromWebServer();
             string requestUrl = _hostUrl + $"/api/jsstudygame/amountofplayers?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             TotalPlayers = ServerWorker.GetInfoFromServer<int>(requestUrl);
             if (TotalPlayers == 0)
                 TotalPlayers = 1;
+
+            _sword = null;
+            GetDataFromWebServer();
         }
 
         private void GetDataFromWebServer()
         {
-
             try
             {
-                string requestUrl = _hostUrl + $"/api/jsstudygame/fullinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}&page={_activePage}";
+                string requestUrl = _hostUrl + $"/api/jsstudygame/fullinfo?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}&page={_activePage}&sword={_sword}";
                 _playersFullInfo = ServerWorker.GetInfoFromServer<ObservableCollection<PlayerFullInfo>>(requestUrl);
+
+                if (_playersFullInfo == null)
+                {
+                    dgShow.ItemsSource = null;
+                    return;
+                }
+
                 foreach (var item in _playersFullInfo)
                 {
                     item.Photo = _hostUrl + $"/photos/{item.Photo}";
@@ -64,7 +73,6 @@ namespace JSStudyGame
             {
                 MessageBox.Show("Cannot connect to server!");
             }
-
         }
 
 
@@ -72,6 +80,9 @@ namespace JSStudyGame
         {
             wpWithDGV.Children.Clear();
             int numberOfObjectsPerPage = 5;
+            //if (_playersFullInfo == null || _playersFullInfo.Count < numberOfObjectsPerPage)
+            //    return;
+
             _pages = (int)Math.Ceiling((double)TotalPlayers / (double)numberOfObjectsPerPage);
 
             var sizeButton = new Size { Width = 50, Height = 25 };
@@ -221,11 +232,6 @@ namespace JSStudyGame
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (!(dgShow.SelectedItem is PlayerFullInfo))
-            {
-                dgShow.SelectedItem = null;
-                return;
-            }
             string login = MainWindow.playerLogin;
             string password = MainWindow.playerPassword;
             this.Hide();
@@ -310,6 +316,17 @@ namespace JSStudyGame
         private void BtnShowAll_Click(object sender, RoutedEventArgs e)
         {
             Window_Loaded(sender, e);
+        }
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            wpWithDGV.Children.Clear();
+            _sword = txtboxSearch.Text;
+            string requestUrl = _hostUrl + $"/api/jsstudygame/amountsearch?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            TotalPlayers = ServerWorker.GetInfoFromServer<int>(requestUrl);
+            if (TotalPlayers == 0)
+                TotalPlayers = 1;
+            GetDataFromWebServer();
         }
     }
 }
