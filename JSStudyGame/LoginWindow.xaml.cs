@@ -25,7 +25,7 @@ namespace JSStudyGame
     /// </summary>
     public partial class LoginWindow : Window
     {
-        //private readonly string hostUrl = "https://myappazurebystepan.azurewebsites.net/api/countries";
+        //private readonly string hostUrl = "https://myappazurebystepan.azurewebsites.net/";
         //private readonly string hostUrl = "http://localhost:49979";
         private readonly string _hostUrl;
         private MainWindow main;
@@ -33,6 +33,7 @@ namespace JSStudyGame
         public LoginWindow()
         {
             _hostUrl = ConfigurationManager.AppSettings["urlName"];
+            _hostUrl = "http://localhost:49979";
             main = null;
             InitializeComponent();
 

@@ -38,6 +38,7 @@ namespace JSStudyGame
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            _activePage = 1;
             string requestUrl = _hostUrl + $"/api/jsstudygame/amountofplayers?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
             TotalPlayers = ServerWorker.GetInfoFromServer<int>(requestUrl);
             if (TotalPlayers == 0)
@@ -320,9 +321,10 @@ namespace JSStudyGame
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
+            _activePage = 1;
             wpWithDGV.Children.Clear();
             _sword = txtboxSearch.Text;
-            string requestUrl = _hostUrl + $"/api/jsstudygame/amountsearch?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}";
+            string requestUrl = _hostUrl + $"/api/jsstudygame/amountsearch?login={MainWindow.playerLogin}&password={MainWindow.playerPassword}&sword={_sword}";
             TotalPlayers = ServerWorker.GetInfoFromServer<int>(requestUrl);
             if (TotalPlayers == 0)
                 TotalPlayers = 1;
